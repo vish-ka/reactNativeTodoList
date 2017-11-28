@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 
 export default class List extends Component {
 
-    renderItem = (text, i) => {
+    renderItem = (item, i) => {
         const {onPressItem} = this.props
 
         return (
@@ -12,7 +12,7 @@ export default class List extends Component {
                 onPress={() => onPressItem(i)}
                 key={i}
             >
-                <Text>{text}</Text>
+                <Text>{item.title}</Text>
             </TouchableOpacity>
         )
     }
