@@ -9,10 +9,13 @@ export default class List extends Component {
         return (
             <TouchableOpacity
                 style={styles.item}
-                onPress={() => onPressItem(i)}
+                onPress={() => {
+                    item.completed = !item.completed;
+                    onPressItem(item)
+                }}
                 key={i}
             >
-                <Text>{item.title}</Text>
+                <Text style={item.completed && styles.completed}>{item.title}</Text>
             </TouchableOpacity>
         )
     }
@@ -22,7 +25,7 @@ export default class List extends Component {
 
         return (
             <View>
-                {list.map(this.renderItem)}
+                {list.slice(0).reverse().map(this.renderItem)}
             </View>
         )
     }
@@ -34,4 +37,8 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         padding: 15,
     },
+    completed: {
+        textDecorationLine: 'line-through',
+        textDecorationColor: '#000'
+    }
 })

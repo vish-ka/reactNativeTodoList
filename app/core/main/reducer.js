@@ -3,8 +3,12 @@ import {
     GET_TODOS_REQUEST,
     GET_TODOS_SUCCESS,
     GET_TODOS_FAILURE,
-    ADD_TODO,
-    REMOVE_TODO
+    CREATE_TODO_REQUEST,
+    CREATE_TODO_SUCCESS,
+    CREATE_TODO_FAILURE,
+    COMPLETE_TODO_REQUEST,
+    COMPLETE_TODO_SUCCESS,
+    COMPLETE_TODO_FAILURE
 } from './actions'
 
 const DEFAULT_STATE = {
@@ -21,7 +25,6 @@ const setLoading = (state) => {
 }
 
 const setTodos = (state, action) => {
-    console.log(action)
     return {
         ...state,
         todos: action.payload,
@@ -41,14 +44,14 @@ const addTodo = (state, action) => {
     const {todos} = state
     return {
         ...state,
-        todos: [action.payload, ...todos],
+        todos: [...todos, action.payload],
     }
 }
-const removeTodo = (state, action) => {
+const completeTodo = (state, action) => {
     const {todos} = state
     return {
         ...state,
-        todos: todos.filter((todo, i) => i !== action.payload),
+        todos: todos
     }
 }
 
@@ -57,8 +60,12 @@ export default createReducer(DEFAULT_STATE, {
     [GET_TODOS_REQUEST]: setLoading,
     [GET_TODOS_SUCCESS]: setTodos,
     [GET_TODOS_FAILURE]: setError,
-    [ADD_TODO]: addTodo,
-    [REMOVE_TODO]: removeTodo
+    [CREATE_TODO_REQUEST]: setLoading,
+    [CREATE_TODO_SUCCESS]: addTodo,
+    [CREATE_TODO_FAILURE]: setError,
+    [COMPLETE_TODO_REQUEST]: setLoading,
+    [COMPLETE_TODO_SUCCESS]: completeTodo,
+    [COMPLETE_TODO_FAILURE]: setError
 })
 
 

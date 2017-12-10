@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AppRegistry, View } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -7,8 +7,7 @@ import List from '../components/list'
 import Input from '../components/input'
 import Title from '../components/title'
 
-import {getTodosRequest} from '../core/main/actions'
-import { addTodo, removeTodo } from '../core/main/actions'
+import { getTodosRequest, createTodoRequest, completeTodoRequest} from '../core/main/actions'
 
 const mapStateToProps = (state) => {
     return {
@@ -19,8 +18,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getTodos: () => dispatch(getTodosRequest()),
-        addTodo: (text) => dispatch(addTodo(text)),
-        removeTodo: (index) => dispatch(removeTodo(index)),
+        addTodo: (text) => dispatch(createTodoRequest(text)),
+        removeTodo: (index) => dispatch(completeTodoRequest(index)),
     }
 }
 
@@ -33,13 +32,14 @@ class Main extends Component {
     onAddTodo = (text) => {
         const item = {
             title:text,
-            completed:false
+            completed:false,
+            authorId: '5a2c034f9738b600b5670a5b'
         }
         this.props.addTodo(item)
     }
 
-    onRemoveTodo = (index) => {
-        this.props.removeTodo(index)
+    onRemoveTodo = (item) => {
+        this.props.removeTodo(item)
     }
 
     render() {
